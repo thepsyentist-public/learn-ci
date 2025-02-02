@@ -1,0 +1,17 @@
+name: Learning CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: 환영 메시지 출력
+      run: echo "GitHub Actions 시작하기!" 
