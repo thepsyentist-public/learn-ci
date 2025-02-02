@@ -1,0 +1,33 @@
+name: PR 자동 리뷰
+
+on:
+  pull_request:
+    types: [opened, synchronize]  # PR이 열리거나 업데이트될 때 실행
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # 컨텐츠 읽기
+      pull-requests: write # PR에 코멘트를 달기 위한 권한
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: PR 코멘트 달기
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const message = `👋 PR 자동 리뷰입니다!
+            
+            ✨ 리뷰 체크리스트:
+            - [ ] 코드 스타일이 일관적인가요?
+            - [ ] 테스트 코드가 포함되어 있나요?
+            - [ ] 문서화가 잘 되어있나요?`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            }); 
