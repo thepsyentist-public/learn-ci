@@ -1,0 +1,29 @@
+name: Auto Deploy
+
+on:
+  schedule:
+    - cron: '0 * * * *'    # 매 시 정각마다 실행 (1시간 간격)
+  workflow_dispatch:        # 수동 실행 옵션 추가
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Node.js 설정
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'yyyy
+        
+    - name: 의존성 설치
+      run: npm install
+      
+    - name: 빌드
+      run: npm run build    # 프로젝트의 빌드 스크립트
+      
+    - name: 배포
+      run: |
+        echo "배포 시작: $(date)"
+        echo "배포 완료"s
