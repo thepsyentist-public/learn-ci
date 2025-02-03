@@ -3,7 +3,6 @@ name: Auto Deploy
 on:
   schedule:
     - cron: '0 * * * *'    # 매 시 정각마다 실행 (1시간 간격)
-  workflow_dispatch:        # 수동 실행 옵션 추가
 
 jobs:
   build:
